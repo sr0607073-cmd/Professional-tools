@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saif-ur-Rehman Premium Tools</title>
+    <!-- Modern Fonts & Icons -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <script src="https://cloudflare.com"></script>
+    <style>
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; padding: 30px 10px; }
+        .main-card { max-width: 850px; margin: auto; background: #ffffff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 40px 20px; border: 1px solid rgba(255,255,255,0.8); }
+        .brand-header { text-align: center; margin-bottom: 35px; }
+        .brand-header h1 { color: #1e3c72; font-size: 32px; font-weight: 700; letter-spacing: 0.5px; }
+        .brand-header p { color: #666; font-size: 15px; margin-top: 5px; font-weight: 300; }
+        
+        /* Premium Tabs */
+        .tab-wrapper { display: flex; justify-content: center; background: #f0f2f5; padding: 6px; border-radius: 30px; margin-bottom: 35px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-trigger { border: none; background: none; padding: 12px 24px; font-size: 14px; font-weight: 600; color: #555; cursor: pointer; border-radius: 25px; transition: all 0.3s ease; width: 33.33%; text-align: center; }
+        .tab-trigger.active { background: #1e3c72; color: #ffffff; box-shadow: 0 4px 10px rgba(30,60,114,0.2); }
+        
+        .tool-panel { display: none; animation: fadeIn 0.4s ease; }
+        .tool-panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { color: #333; font-size: 22px; margin-bottom: 20px; border-left: 4px solid #1e3c72; padding-left: 10px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        label { font-size: 13px; font-weight: 600; color: #444; display: block; margin-bottom: 6px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #dcdde1; border-radius: 8px; font-size: 14px; background: #f9f9f9; transition: 0.3s; }
+        input:focus, textarea:focus { border-color: #1e3c72; background: #fff; outline: none; box-shadow: 0 0 8px rgba(30,60,114,0.1); }
+        
+        /* Table Layout */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid #edf2f7; }
+        th { background-color: #1e3c72; color: white; font-size: 14px; font-weight: 600; }
+        td { background: #ffffff; }
+
+        /* Modern Styling Buttons */
+        .action-btn { background: linear-gradient(to right, #1e3c72, #2a5298); color: white; padding: 14px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 600; width: 100%; margin-top: 25px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 5px 15px rgba(30,60,114,0.3); }
+        .action-btn:hover { transform: translateY(-1px); box-shadow: 0 7px 20px rgba(30,60,114,0.4); }
+        .action-btn-green { background: linear-gradient(to right, #11998e, #38ef7d); box-shadow: 0 5px 15px rgba(17,153,142,0.3); }
+        .action-btn-green:hover { box-shadow: 0 7px 20px rgba(17,153,142,0.4); }
+
+        /* Output Zones */
+        .qr-output-box { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 25px; background: #f8f9fa; padding: 20px; border-radius: 12px; border: 2px dashed #dcdde1; min-height: 220px; }
+        #qrcode img { border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        textarea { resize: vertical; }
+
+        .branding-footer { text-align: center; margin-top: 45px; font-size: 13px; color: #777; border-top: 1px solid #eee; padding-top: 25px; }
+        .branding-footer b { color: #1e3c72; }
+        
+        @media print {
+            .tab-wrapper, .action-btn, input, .no-print, p, th:nth-child(4), td:nth-child(4) { display: none !important; }
+            body { background: #fff; padding: 0; }
+            .main-card { box-shadow: none; border: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-card">
+    <div class="brand-header">
+        <h1>Saif-ur-Rehman Smart Suite</h1>
+        <p>Premium Web Tools Platform & Premium Business Utilities</p>
+    </div>
+
+    <!-- Switch Panel Tabs -->
+    <div class="tab-wrapper no-print">
+        <button class="tab-trigger active" onclick="switchPanel(event, 'invoice-panel')">🧾 Invoice Maker</button>
+        <button class="tab-trigger" onclick="switchPanel(event, 'qr-panel')">📱 QR Code Studio</button>
+        <button class="tab-trigger" onclick="switchPanel(event, 'pdf-panel')">📄 Document Writer</button>
+    </div>
+
+    <!-- 1. INVOICE STUDIO -->
+    <div id="invoice-panel" class="tool-panel active">
+        <h2>Professional Bill Generator</h2>
+        <div class="form-row">
+            <div>
+                <label>Client Reference Name</label>
+                <input type="text" id="clientName" placeholder="Client or Company Name">
+            </div>
+            <div>
+                <label>Issue Date</label>
+                <input type="date" id="billingDate">
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Service / Item Description</th>
+                    <th style="width: 100px;">Quantity</th>
+                    <th style="width: 150px;">Unit Price (PKR)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" placeholder="e.g. Premium UI Design & Development"></td>
+                    <td><input type="number" class="calc-qty" value="1" oninput="runBillCalculation()"></td>
+                    <td><input type="number" class="calc-prc" value="0" oninput="runBillCalculation()"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" placeholder="e.g. Premium Cloud Deployment"></td>
+                    <td><input type="number" class="calc-qty" value="0" oninput="runBillCalculation()"></td>
+                    <td><input type="number" class="calc-prc" value="0" oninput="runBillCalculation()"></td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 style="text-align: right; margin-top: 25px; color: #1e3c72; font-size: 20px;">Net Payable: <span id="billGrandTotal">0.00</span> PKR</h3>
+        <button class="action-btn action-btn-green" onclick="window.print()">Export Bill as Professional PDF</button>
+    </div>
+
+    <!-- 2. QR STUDIO -->
+    <div id="qr-panel" class="tool-panel">
+        <h2>Instant Custom QR Generator</h2>
+        <label>Insert Target Link or Encrypted Text</label>
+        <input type="text" id="targetQrData" placeholder="https://your-domain.com or any dynamic data...">
+        <button class="action-btn" onclick="buildCustomQR()">Generate High-Res QR Code</button>
+        <div class="qr-output-box">
+            <div id="qrcode"></div>
+        </div>
+    </div>
+
+    <!-- 3. DOC WRITER TO PDF -->
+    <div id="pdf-panel" class="tool-panel">
+        <h2>Rich Text Document Exporter</h2>
+        <label>Write or Paste Document Information</label>
+        <textarea id="documentBody" rows="9" placeholder="Start typing official documents, contract terms, or clean reports here..."></textarea>
+        <button class="action-btn" onclick="window.print()">Print / Save Clean Document</button>
+    </div>
+
+    
+    <div class="branding-footer">
+        <p>© 2026 Developed & Managed by <b>Saif-ur-Rehman Solutions</b>. Industry Grade Utilities.</p>
+    </div>
+</div>
+
+<script>
+    // Tab controller logic
+    function switchPanel(event, targetId) {
+        let panels = document.getElementsByClassName('tool-panel');
+        for (let panel of panels) {
+            panel.classList.remove('active');
+        }
+        let triggers = document.getElementsByClassName('tab-trigger');
+        for (let trigger of triggers) {
+            trigger.classList.remove('active');
+        }
+        document.getElementById(targetId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Advanced Live Billing Math
+    function runBillCalculation() {
+        let qtyList = document.getElementsByClassName('calc-qty');
+        let prcList = document.getElementsByClassName('calc-prc');
+        let calculatedSum = 0;
+        for (let i = 0; i < qtyList.length; i++) {
+            let q = parseFloat(qtyList[i].value) || 0;
+            let p = parseFloat(prcList[i].value) || 0;
+            calculatedSum += (q * p);
+        }
+        document.getElementById('billGrandTotal').innerText = calculatedSum.toFixed(2);
+    }
+
+    // Premium Core QR Builder
+    let targetZone = document.getElementById("qrcode");
+    function buildCustomQR() {
+        let inputContent = document.getElementById("targetQrData").value;
+        if (!inputContent.trim()) {
+            alert("Please provide valid text or URL string first!");
+            return;
+        }
+        targetZone.innerHTML = ""; 
+        new QRCode(targetZone, {
+            text: inputContent,
+            width: 180,
+            height: 180
+        });
+    }
+</script>
+
+</body>
+</html>
